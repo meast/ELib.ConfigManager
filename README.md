@@ -9,7 +9,9 @@ the machine name is case sensitive.
 Usage:
 
 
-ELib.ConfigManager.EConfig ec = new ELib.ConfigManager.EConfig("~/bin/elib.config");string a1 = ec.Get("a1");
+ELib.ConfigManager.EConfig ec = new ELib.ConfigManager.EConfig("~/bin/elib.config");
+
+string a1 = ec.Get("a1");
 
   the first two character  "~/" will be parse as System.Web.HttpContext.Current.Server.MapPath("/").
 

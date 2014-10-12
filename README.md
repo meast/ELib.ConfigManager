@@ -7,6 +7,8 @@ find config value by machine name.use the default machine when the config key is
 the machine name is case sensitive.
 
 Usage:
+
+
 ELib.ConfigManager.EConfig ec = new ELib.ConfigManager.EConfig("~/bin/elib.config");string a1 = ec.Get("a1");
 
   the first two character  "~/" will be parse as System.Web.HttpContext.Current.Server.MapPath("/").

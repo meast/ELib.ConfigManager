@@ -6,6 +6,8 @@ dotnet base configuration manager per machine.config diffrent value for diffrent
 find config value by machine name.use the default machine when the config key is not exists in current machine.
 the machine name is case sensitive.
 
+if the config file is not exists, it will generate a sample file for you.just confirm the path of the file is exists and writable.
+
 Usage:
 
 

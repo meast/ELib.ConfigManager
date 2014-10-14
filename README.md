@@ -23,7 +23,7 @@ string a1 = ELib.ConfigManager.EConfig.GetInstance("~/bin/elib.config").Get("a1"
   
 string a2 = ELib.ConfigManager.EConfig.GetInstance("|DataDirectorY|elib.config").Get("a2");
 
-  the first 15 character "|DataDirectorY|" ignore case will be parse as "~/app_data/" in lower case,and then parse the "~/" as  System.Web.HttpContext.Current.Server.MapPath("/").
+  the first 15 character "|DataDirectorY|" ignore case will be parse as "~/app_data/" in lower case,and then parse the "~/" as  System.AppDomain.CurrentDomain.BaseDirectory + CFile.Substring(2).
   
   
 Name your host as default is not recommended.

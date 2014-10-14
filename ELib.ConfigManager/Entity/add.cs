@@ -10,7 +10,7 @@ namespace ELib.ConfigManager.Entity
     {
         [XmlAttribute("key")]
         public string key { get; set; }
-        [XmlAttribute("name")]
+        [XmlAttribute("value")]
         public string value { get; set; }
     }
 }

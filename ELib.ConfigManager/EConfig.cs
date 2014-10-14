@@ -216,7 +216,7 @@ namespace ELib.ConfigManager
             }
             if (CFile.StartsWith("~/"))
             {
-                CFile = System.Web.HttpContext.Current.Server.MapPath("/") + CFile.Substring(2);
+                CFile = System.AppDomain.CurrentDomain.BaseDirectory + CFile.Substring(2);
             }
             return CFile;
         }

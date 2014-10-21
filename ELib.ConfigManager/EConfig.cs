@@ -34,7 +34,7 @@ namespace ELib.ConfigManager
         public EConfig(string CFile)
         {
             this.MachineName = System.Environment.MachineName;
-            CFile = this.ParseCFile(CFile);
+            CFile = ParseCFile(CFile);
             if (!System.IO.File.Exists(CFile))
             {
                 try
@@ -89,7 +89,8 @@ namespace ELib.ConfigManager
             {
                 if (EConfig.obj.ConfigFile != CFile)
                 {
-                    CFile = this.ParseCFile(CFile);
+                    CFile = ParseCFile(CFile);
+                    EConfig.obj.ConfigFile = CFile;
                     if (System.IO.File.Exists(CFile))
                     {
                         this.ConfigFile = CFile;
@@ -205,7 +206,7 @@ namespace ELib.ConfigManager
         /// </summary>
         /// <param name="CFile"></param>
         /// <returns></returns>
-        private string ParseCFile(string CFile)
+        public static string ParseCFile(string CFile)
         {
             if (!String.IsNullOrEmpty(CFile))
             {

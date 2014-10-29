@@ -72,7 +72,7 @@ namespace ELib.ConfigManager
         public static EConfig GetInstance(string CFile)
         {
             CFile = ParseCFile(CFile);
-            string hashkey = System.Text.Encoding.Default.GetString(new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(System.Text.Encoding.Default.GetBytes(CFile)));
+            string hashkey = MD5(CFile);
             if (!EConfig.obj.ContainsKey(hashkey) || EConfig.obj[hashkey] == null) EConfig.obj[hashkey] = new EConfig(CFile);
             return EConfig.obj[hashkey];
         }
@@ -86,7 +86,7 @@ namespace ELib.ConfigManager
         public EConfig SetConfigFile(string CFile)
         {
             CFile = ParseCFile(CFile);
-            string hashkey = System.Text.Encoding.Default.GetString(new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(System.Text.Encoding.Default.GetBytes(CFile)));
+            string hashkey = MD5(CFile);
             if (!EConfig.obj.ContainsKey(hashkey) || EConfig.obj[hashkey] == null) EConfig.obj[hashkey] = new EConfig(CFile);
             return EConfig.obj[hashkey];
         }
@@ -208,5 +208,39 @@ namespace ELib.ConfigManager
             return CFile;
         }
 
+        /// <summary>
+        /// MD5 hash
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string MD5(string str)
+        {
+            System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            byte[] data = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(str));
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sb.Append(data[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// SHA1 hash
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string SHA1(string str)
+        {
+            System.Security.Cryptography.SHA1CryptoServiceProvider sha1 = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+            byte[] data = sha1.ComputeHash(System.Text.Encoding.Default.GetBytes(str));
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sb.Append(data[i].ToString("X2"));
+            }
+            return sb.ToString();
+            //return System.Text.Encoding.GetEncoding("GB2312").GetString(new System.Security.Cryptography.SHA1CryptoServiceProvider().ComputeHash(System.Text.Encoding.GetEncoding("GB2312").GetBytes(str)));
+        }
     }
 }

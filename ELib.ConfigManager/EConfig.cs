@@ -18,7 +18,7 @@ namespace ELib.ConfigManager
         public Entity.config Configs;
         public Entity.machine Config;
 
-        public static EConfig obj;
+        public static Dictionary<string, EConfig> obj = new Dictionary<string,EConfig>();
 
         /// <summary>
         /// do nothing
@@ -61,8 +61,7 @@ namespace ELib.ConfigManager
         /// <returns></returns>
         public static EConfig GetInstance()
         {
-            if (EConfig.obj == null) EConfig.obj = new EConfig();
-            return EConfig.obj;
+            return new EConfig();
         }
 
         /// <summary>
@@ -72,8 +71,10 @@ namespace ELib.ConfigManager
         /// <returns></returns>
         public static EConfig GetInstance(string CFile)
         {
-            if (EConfig.obj == null) EConfig.obj = new EConfig(CFile);
-            return obj;
+            CFile = ParseCFile(CFile);
+            string hashkey = System.Text.Encoding.Default.GetString(new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(System.Text.Encoding.Default.GetBytes(CFile)));
+            if (!EConfig.obj.ContainsKey(hashkey) || EConfig.obj[hashkey] == null) EConfig.obj[hashkey] = new EConfig(CFile);
+            return EConfig.obj[hashkey];
         }
 
         /// <summary>
@@ -84,25 +85,10 @@ namespace ELib.ConfigManager
         /// <returns>EConfig</returns>
         public EConfig SetConfigFile(string CFile)
         {
-            if (EConfig.obj == null) EConfig.obj = new EConfig(CFile);
-            else
-            {
-                if (EConfig.obj.ConfigFile != CFile)
-                {
-                    CFile = ParseCFile(CFile);
-                    EConfig.obj.ConfigFile = CFile;
-                    if (System.IO.File.Exists(CFile))
-                    {
-                        this.ConfigFile = CFile;
-                        XmlSerializer xs = new XmlSerializer(typeof(Entity.config));
-                        FileStream fs = new FileStream(CFile, FileMode.Open);
-                        this.Configs = (Entity.config)xs.Deserialize(fs);
-                        fs.Close();
-                        this.Config = this.Configs.machines.Find(p => p.name == this.MachineName);
-                    }
-                }
-            }
-            return EConfig.obj;
+            CFile = ParseCFile(CFile);
+            string hashkey = System.Text.Encoding.Default.GetString(new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(System.Text.Encoding.Default.GetBytes(CFile)));
+            if (!EConfig.obj.ContainsKey(hashkey) || EConfig.obj[hashkey] == null) EConfig.obj[hashkey] = new EConfig(CFile);
+            return EConfig.obj[hashkey];
         }
 
         /// <summary>

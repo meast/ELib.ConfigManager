@@ -144,11 +144,34 @@ namespace ELib.ConfigManager
                 a3.key = "isdebug";
                 a3.value = "true";
 
+                Entity.section sec1 = new Entity.section();
+                sec1.name = "sec-name";
+                sec1.id = "sec-id-1";
+                sec1.value = "sec-val-1";
+
+                Entity.section sec2 = new Entity.section();
+                sec2.name = "sec-name";
+                sec2.id = "sec-id-2";
+                sec2.value = "sec-val-2";
+
+                Entity.sections sec = new Entity.sections();
+                sec.name = "sec-names";
+                sec.sectionitems = new List<Entity.section>();
+                sec.sectionitems.Add(sec1);
+                sec.sectionitems.Add(sec2);
+
+                Entity.sections secs = sec;
+                secs.name = "sec-namess";
+
+
                 Entity.machine m1 = new Entity.machine();
                 m1.name = "default";
                 m1.configs = new List<Entity.add>();
                 m1.configs.Add(a1);
                 m1.configs.Add(a2);
+                m1.sectionslist = new List<Entity.sections>();
+                m1.sectionslist.Add(sec);
+                m1.sectionslist.Add(secs);         
 
                 Entity.machine m2 = new Entity.machine();
                 m2.name = "host-1";

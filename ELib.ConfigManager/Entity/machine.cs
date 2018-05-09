@@ -13,6 +13,9 @@ namespace ELib.ConfigManager.Entity
         
         [XmlArray]
         public List<add> configs { get; set; }
+
+        
+        public List<sections> sectionslist { get; set; }
         
         [XmlIgnore]
         public bool IsDebug
